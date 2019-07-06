@@ -1,4 +1,4 @@
-package com.example.connectthree;
+package com.hyosunko.connectthree;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

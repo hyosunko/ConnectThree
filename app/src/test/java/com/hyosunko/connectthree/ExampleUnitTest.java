@@ -1,4 +1,4 @@
-package com.example.connectthree;
+package com.hyosunko.connectthree;
 
 import org.junit.Test;
 

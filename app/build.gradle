@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.connectthree"
-        minSdkVersion 15
+        applicationId "com.hyosunko.connectthree"
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
