@@ -1,4 +1,4 @@
-# Connet Three Game
+# Connect Three Game
 
 Android Tic-Tac-Toe Game
 
