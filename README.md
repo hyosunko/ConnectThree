@@ -1,6 +1,6 @@
 # Connet Three Game
 
-Tic-Tac-Toe Android Game
+Android Tic-Tac-Toe Game
 
 ### Built With
 
