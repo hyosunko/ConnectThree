@@ -16,14 +16,14 @@ public class MainActivity extends AppCompatActivity {
     int[][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6},{1, 4, 7}, {2, 5, 8}, {0, 4, 8},{2, 4, 6}};
     boolean gameActive = true;
     int gameCounter = 0;
-    int currentPlayer;
+    int currentPlayer= 0;
     int yellowScore = 0;
     int redScore = 0;
 
     public void dropIn (View view){
         ImageView counter = (ImageView) view;
-        ImageView yellowTurnImage = (ImageView) findViewById(R.id.yellowTurnImage);
-        ImageView redTurnImage = (ImageView) findViewById(R.id.redTurnImage);
+        final ImageView yellowTurnImage = (ImageView) findViewById(R.id.yellowTurnImage);
+        final ImageView redTurnImage = (ImageView) findViewById(R.id.redTurnImage);
         TextView yellowScoreText = (TextView) findViewById(R.id.yellowScoreText);
         TextView redScoreText = (TextView) findViewById(R.id.redScoreText);
 
@@ -36,13 +36,21 @@ public class MainActivity extends AppCompatActivity {
             counter.setTranslationY(-1500);
             if (activePlayer == 0) {
                 counter.setImageResource(R.drawable.yellow);
-                yellowTurnImage.setVisibility(View.INVISIBLE);
-                redTurnImage.setVisibility(View.VISIBLE);
+                yellowTurnImage.animate().alpha(0).setDuration(0);
+                redTurnImage.animate().alpha(1).setDuration(3000);
+//                yellowTurnImage.setVisibility(View.INVISIBLE);
+//                redTurnImage.setVisibility(View.VISIBLE);
+//                redTurnImage.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        redTurnImage.setVisibility(View.VISIBLE);
+//                    }
+//                }, 1000);
                 activePlayer = 1;
             } else {
                 counter.setImageResource(R.drawable.red);
-                yellowTurnImage.setVisibility(View.VISIBLE);
-                redTurnImage.setVisibility(View.INVISIBLE);
+                yellowTurnImage.animate().alpha(1).setDuration(3000);
+                redTurnImage.animate().alpha(0).setDuration(0);
                 activePlayer = 0;
             }
             counter.animate().translationYBy(1500).rotation(3600).setDuration(1000);
@@ -55,16 +63,18 @@ public class MainActivity extends AppCompatActivity {
                     gameActive = false;
                     if (activePlayer == 1) {
                         winner = "Yellow has won";
-                        yellowTurnImage.setVisibility(View.VISIBLE);
-                        redTurnImage.setVisibility(View.INVISIBLE);
+                        yellowTurnImage.animate().alpha(1).setDuration(0);
+                        redTurnImage.animate().alpha(0).setDuration(0);
                         yellowScore++;
                         yellowScoreText.setText(String.valueOf(yellowScore));
+                        currentPlayer = 1;
                     } else {
                         winner = "Red has won";
-                        yellowTurnImage.setVisibility(View.INVISIBLE);
-                        redTurnImage.setVisibility(View.VISIBLE);
+                        yellowTurnImage.animate().alpha(0).setDuration(0);
+                        redTurnImage.animate().alpha(1).setDuration(0);
                         redScore++;
                         redScoreText.setText(String.valueOf(redScore));
+                        currentPlayer= 0;
                     }
 
                     Button playAgainButton = (Button) findViewById(R.id.playAgainButton);
@@ -81,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
                     playAgainButton.setVisibility(View.VISIBLE);
                     winnerTextView.setVisibility(View.VISIBLE);
-                    yellowTurnImage.setVisibility(View.INVISIBLE);
-                    redTurnImage.setVisibility(View.INVISIBLE);
+                    yellowTurnImage.animate().alpha(0).setDuration(0);
+                    redTurnImage.animate().alpha(0).setDuration(0);
                 }
             }
         }
@@ -108,23 +118,22 @@ public class MainActivity extends AppCompatActivity {
             gameState[i] = 2;
         }
 
-        if(redTurnImage.getVisibility() == View.VISIBLE){
+        if(redTurnImage.getAlpha() == 1){
             activePlayer= 0;
-            redTurnImage.setVisibility(View.INVISIBLE);
-            yellowTurnImage.setVisibility(View.VISIBLE);
-
-        } else if (yellowTurnImage.getVisibility() == View.VISIBLE){
+                yellowTurnImage.animate().alpha(1).setDuration(0);
+                redTurnImage.animate().alpha(0).setDuration(0);
+            } else if (yellowTurnImage.getAlpha() == 1){
             activePlayer = 1;
-            redTurnImage.setVisibility(View.VISIBLE);
-            yellowTurnImage.setVisibility(View.INVISIBLE);
+                yellowTurnImage.animate().alpha(0).setDuration(0);
+                redTurnImage.animate().alpha(1).setDuration(0);
         } else {
             activePlayer = currentPlayer;
             if(activePlayer == 0){
-                redTurnImage.setVisibility(View.INVISIBLE);
-                yellowTurnImage.setVisibility(View.VISIBLE);
+                yellowTurnImage.animate().alpha(0).setDuration(0);
+                redTurnImage.animate().alpha(1).setDuration(0);
             } else {
-                redTurnImage.setVisibility(View.VISIBLE);
-                yellowTurnImage.setVisibility(View.INVISIBLE);
+                yellowTurnImage.animate().alpha(1).setDuration(0);
+                redTurnImage.animate().alpha(0).setDuration(0);
             }
         }
         gameActive = true;
@@ -148,7 +157,8 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView yellowTurnImage = (ImageView) findViewById(R.id.yellowTurnImage);
     ImageView redTurnImage = (ImageView) findViewById(R.id.redTurnImage);
-        redTurnImage.setVisibility(View.INVISIBLE);
-        yellowTurnImage.setVisibility(View.VISIBLE);
+
+    redTurnImage.animate().alpha(0).setDuration(0);
+    yellowTurnImage.animate().alpha(1).setDuration(0);
     }
 }
